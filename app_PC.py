@@ -6,7 +6,7 @@ model=pickle.load(open("model_saved","rb"))
 
 def predict_churn(CreditScore, Geography, Gender, Age, Tenure, Balance, NumOfProducts, HasCrCard, IsActiveMember, EstimatedSalary):
     input = np.array([[CreditScore, Geography, Gender, Age, Tenure, Balance, NumOfProducts, HasCrCard, IsActiveMember, EstimatedSalary]])
-    prediction = model.predict_proba(input)[:, 1]
+    prediction = model.predict_proba(input)[:, 1] * 100
     return float(prediction)
 
 
@@ -15,7 +15,7 @@ Geography = st.selectbox('География/регион', ['Минск', 'Бр
 
 Gender = st.selectbox('Пол', ['1', '0'])
 
-Age = st.slider("Возраст", 10, 100)
+Age = st.slider("Возраст", 18, 100)
 
 Tenure = st.slider("Количество лет клиент банка:", 0, 20)
 
@@ -46,7 +46,7 @@ if st.button('Сделать прогноз'):
         st.success('Вероятность оттока составляет {}'.format(output))
         st.balloons()
 
-        if output >= 0.5:
+        if output >= 50:
             st.markdown(churn_html, unsafe_allow_html= True)
 
         else:
