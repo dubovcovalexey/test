@@ -2,7 +2,7 @@ import streamlit as st
 import pickle
 import numpy as np
 
-model=pickle.load(open("model_saved.pkl","rb"))
+model=pickle.load(open("model_saved","rb"))
 
 CreditScore = st.slider('Скоринговый балл', 0, 400)
 Geography = st.selectbox('География/регион', ['Минск', 'Брест', 'Могилев'])
