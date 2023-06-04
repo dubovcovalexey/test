@@ -26,25 +26,14 @@ IsActiveMember = st.selectbox("Активный клиент ?", ['0', '1'])
 EstimatedSalary = st.slider("Зарплата", 0.00, 200000.00)
 
 
-churn_html = """  
-              <div style="background-color:#f44336;padding:20px >
-               <h2 style="color:red;text-align:center;"> Жаль, но теряем клиента.</h2>
-               </div>
-            """
-    no_churn_html = """  
-              <div style="background-color:#94be8d;padding:20px >
-               <h2 style="color:green ;text-align:center;"> Ура, клиент остаётся в банке !!!</h2>
-               </div>
-            """
-
 if st.button('Сделать прогноз'):
     output = predict_churn(CreditScore, Geo, Gen, Age, Tenure, Balance, NumOfProducts, HasCrCard, IsActiveMember,
                            EstimatedSalary)
     st.success('Вероятность оттока составляет {}'.format(output))
     st.balloons()
 
-    if output >= 0.5:
-        st.markdown(churn_html, unsafe_allow_html=True)
+if output >= 0.5:
+        print('Клиент уйдет')
 
-    else:
-        st.markdown(no_churn_html, unsafe_allow_html=True)
+else:
+        print('Клиент останется')
