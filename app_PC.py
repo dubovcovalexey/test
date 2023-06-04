@@ -2,13 +2,13 @@ import streamlit as st
 import pickle
 import numpy as np
 
+model=pickle.load(open("model_saved","rb"))
+
 def predict_churn(CreditScore, Geography, Gender, Age, Tenure, Balance, NumOfProducts, HasCrCard, IsActiveMember, EstimatedSalary):
     input = np.array([[CreditScore, Geography, Gender, Age, Tenure, Balance, NumOfProducts, HasCrCard, IsActiveMember, EstimatedSalary]])
-    prediction = model.predict_proba(input)
-    pred = '{0:.{1}f}'.format(prediction[0][0], 2)
-    return float(pred)
+    prediction = model.predict_proba(input)[:, 1]
+    return float(prediction)
 
-model=pickle.load(open("model_saved","rb"))
 
 CreditScore = st.slider('Скоринговый балл', 0, 400)
 Geography = st.selectbox('География/регион', ['Минск', 'Брест', 'Могилев'])
@@ -17,7 +17,7 @@ Gender = st.selectbox('Пол', ['1', '0'])
 
 Age = st.slider("Возраст", 10, 100)
 
-Tenure = st.selectbox("Стаж", ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15'])
+Tenure = st.slider("Количество лет клиент банка:", 0, 20)
 
 Balance = st.slider("Баланс", 0.00, 10000.00)
 
