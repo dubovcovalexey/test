@@ -13,7 +13,7 @@ def predict_churn(CreditScore, Geography, Gender, Age, Tenure, Balance, NumOfPro
 CreditScore = st.slider('Скоринговый балл', 0, 400)
 Geography = st.selectbox('География/регион', ['Минск', 'Брест', 'Могилев'])
 
-Gender = st.selectbox('Пол', ['1', '0'])
+Gender = st.selectbox('Пол', 1, 0)
 
 Age = st.slider("Возраст", 18, 100)
 
